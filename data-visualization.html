@@ -32,6 +32,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         header {
@@ -48,12 +50,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .logo {
             font-size: 28px;
             font-weight: bold;
             letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
         h1,
@@ -85,11 +89,13 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             padding: 25px;
             margin-bottom: 30px;
+            overflow-x: auto;
+            /* For tables on small screens */
         }
 
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-bottom: 20px;
         }
@@ -125,6 +131,7 @@
             height: 300px;
             margin: 20px 0;
             position: relative;
+            overflow-x: auto;
         }
 
         .chart-legend {
@@ -152,6 +159,8 @@
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            min-width: 600px;
+            /* Ensure tables have minimum width */
         }
 
         th {
@@ -206,6 +215,8 @@
             align-items: flex-end;
             justify-content: space-around;
             padding-top: 20px;
+            min-width: 500px;
+            /* Ensure minimum width for scrolling */
         }
 
         .bar-group {
@@ -313,9 +324,61 @@
             gap: 30px;
         }
 
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flex-item {
+            flex: 1;
+            min-width: 280px;
+        }
+
         @media (max-width: 768px) {
             .two-columns {
                 grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .donut-chart-container {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 24px;
+            }
+
+            .card-value {
+                font-size: 28px;
+            }
+
+            .highlight-box {
+                padding: 10px;
             }
         }
 
@@ -390,14 +453,14 @@
 
             <h3>Why Customers Scan Products</h3>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 300px;">
+            <div class="flex-container">
+                <div class="flex-item">
                     <div class="donut-chart-container">
                         <div class="donut-chart"></div>
                         <div class="donut-hole">42%</div>
                     </div>
                 </div>
-                <div style="flex: 1; min-width: 300px;">
+                <div class="flex-item">
                     <table>
                         <tr>
                             <td><span
@@ -436,7 +499,7 @@
             <h3>Scan-to-Purchase Conversion by Category</h3>
 
             <div class="chart-container">
-                <div style="display: flex; height: 100%;">
+                <div style="display: flex; height: 100%; min-width: 500px;">
                     <div
                         style="display: flex; flex-direction: column; justify-content: space-between; padding: 10px 10px 0 0;">
                         <div>100%</div>
@@ -478,47 +541,49 @@
                 </div>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Scan-to-Purchase Rate</th>
-                        <th>Avg Time to Purchase</th>
-                        <th>Top Scan Reason</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Dairy</td>
-                        <td>73%</td>
-                        <td>2.3 minutes</td>
-                        <td>Expiration date</td>
-                    </tr>
-                    <tr>
-                        <td>Meat</td>
-                        <td>65%</td>
-                        <td>8.7 minutes</td>
-                        <td>Origin/sourcing</td>
-                    </tr>
-                    <tr>
-                        <td>Produce</td>
-                        <td>61%</td>
-                        <td>1.5 minutes</td>
-                        <td>Freshness</td>
-                    </tr>
-                    <tr>
-                        <td>Bakery</td>
-                        <td>82%</td>
-                        <td>4.1 minutes</td>
-                        <td>Ingredients</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="section" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Scan-to-Purchase Rate</th>
+                            <th>Avg Time to Purchase</th>
+                            <th>Top Scan Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Dairy</td>
+                            <td>73%</td>
+                            <td>2.3 minutes</td>
+                            <td>Expiration date</td>
+                        </tr>
+                        <tr>
+                            <td>Meat</td>
+                            <td>65%</td>
+                            <td>8.7 minutes</td>
+                            <td>Origin/sourcing</td>
+                        </tr>
+                        <tr>
+                            <td>Produce</td>
+                            <td>61%</td>
+                            <td>1.5 minutes</td>
+                            <td>Freshness</td>
+                        </tr>
+                        <tr>
+                            <td>Bakery</td>
+                            <td>82%</td>
+                            <td>4.1 minutes</td>
+                            <td>Ingredients</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h3>Demographic Engagement Analysis</h3>
 
-            <div style="display: flex; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 320px; padding: 20px;">
+            <div class="flex-container">
+                <div class="flex-item">
                     <div style="margin-bottom: 15px;">
                         <div style="font-weight: 500; margin-bottom: 5px;">Users Aged 25-34 vs Other Age Groups</div>
                         <div style="display: flex; align-items: center;">
@@ -568,7 +633,7 @@
                     </div>
                 </div>
 
-                <div style="flex: 1; min-width: 320px; padding: 20px;">
+                <div class="flex-item">
                     <div>
                         <div style="font-weight: 500; margin-bottom: 5px;">Health-Conscious vs Convenience Shoppers
                         </div>
@@ -609,7 +674,7 @@
             <h2>Sales Improvement</h2>
 
             <div class="chart-container">
-                <div style="height: 100%; display: flex;">
+                <div style="height: 100%; display: flex; min-width: 500px;">
                     <div
                         style="padding-right: 15px; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>80%</div>
@@ -654,42 +719,44 @@
                 </div>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Metric</th>
-                        <th>Before FreshTrack</th>
-                        <th>After FreshTrack</th>
-                        <th>Improvement</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sales of items within 2 days of sell-by date</td>
-                        <td>26%</td>
-                        <td>72%</td>
-                        <td><span style="color: var(--success);">+46%</span></td>
-                    </tr>
-                    <tr>
-                        <td>Average cart value</td>
-                        <td>$78.35</td>
-                        <td>$82.17</td>
-                        <td><span style="color: var(--success);">+4.9%</span></td>
-                    </tr>
-                    <tr>
-                        <td>Customer repeat visit rate (30-day)</td>
-                        <td>62%</td>
-                        <td>67%</td>
-                        <td><span style="color: var(--success);">+5%</span></td>
-                    </tr>
-                    <tr>
-                        <td>Conversion rate (store visitors who purchase)</td>
-                        <td>71%</td>
-                        <td>74%</td>
-                        <td><span style="color: var(--success);">+3%</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="section" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Before FreshTrack</th>
+                            <th>After FreshTrack</th>
+                            <th>Improvement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sales of items within 2 days of sell-by date</td>
+                            <td>26%</td>
+                            <td>72%</td>
+                            <td><span style="color: var(--success);">+46%</span></td>
+                        </tr>
+                        <tr>
+                            <td>Average cart value</td>
+                            <td>$78.35</td>
+                            <td>$82.17</td>
+                            <td><span style="color: var(--success);">+4.9%</span></td>
+                        </tr>
+                        <tr>
+                            <td>Customer repeat visit rate (30-day)</td>
+                            <td>62%</td>
+                            <td>67%</td>
+                            <td><span style="color: var(--success);">+5%</span></td>
+                        </tr>
+                        <tr>
+                            <td>Conversion rate (store visitors who purchase)</td>
+                            <td>71%</td>
+                            <td>74%</td>
+                            <td><span style="color: var(--success);">+3%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="summary-box">
                 <strong>Projected Annual Impact:</strong> For a mid-sized supermarket with $12M annual revenue:
@@ -703,7 +770,7 @@
             <h2>Food Waste Reduction</h2>
 
             <div class="chart-container">
-                <div style="height: 100%; display: flex;">
+                <div style="height: 100%; display: flex; min-width: 500px;">
                     <div
                         style="padding-right: 15px; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>15%</div>
@@ -728,36 +795,219 @@
                             <div class="vertical-bar before" style="height: 160px;"></div>
                             <div class="vertical-bar after" style="height: 80px;"></div>
                             <div class="bar-group-label">Produce</div>
+                            <div class="vertical-bar before" style="height: 160px;"></div>
+                            <div class="vertical-bar after" style="height: 80px;"></div>
+                            <div class="bar-group-label">Produce</div>
                         </div>
                         <div class="bar-group">
-                            <div class="vertical-bar before" style="height: 216px;"></div>
-                            <div class="vertical-bar after" style="height: 90px;"></div>
-                            <div class="bar-group-label">Overall</div>
+                            <div class="vertical-bar before" style="height: 140px;"></div>
+                            <div class="vertical-bar after" style="height: 64px;"></div>
+                            <div class="bar-group-label">Bakery</div>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </div>
 
-        <div class="chart-legend">
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: var(--success);"></div>
-                <div>Before FreshTrack</div>
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: var(--success);"></div>
+                    <div>Before FreshTrack</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: var(--danger);"></div>
+                    <div>After FreshTrack</div>
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: var(--danger);"></div>
-                <div>After FreshTrack</div>
-            </div>
-        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Before FreshTrack Waste (% of inventory)</th>
-                    <th>After FreshTrack Waste (% of inventory)</th>
-                    <th>Reduction</th>
-                </tr>
-            </thead>
-            <tbody>
+            <!--If we add, it goes here -->
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>FreshTrack Data Insights Report &copy; 2025</p>
+        </div>
+    </footer>
+
+    <!-- ensuring mobile compatibility -->
+    <style>
+        @media (max-width: 640px) {
+            .container {
+                padding: 10px;
+            }
+
+            .section {
+                padding: 12px;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+
+            .card-grid {
+                gap: 10px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .card-value {
+                font-size: 24px;
+            }
+
+            .flex-container {
+                flex-direction: column;
+            }
+
+            .flex-item {
+                width: 100%;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin: 15px 0;
+            }
+
+            .bar-group {
+                margin-right: 20px !important;
+            }
+
+            .vertical-bar {
+                width: 30px;
+            }
+
+            .bar-group-label {
+                font-size: 12px;
+            }
+
+            .legend-item {
+                margin-right: 12px;
+                font-size: 14px;
+            }
+
+            td,
+            th {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+
+            .donut-chart-container {
+                width: 160px;
+                height: 160px;
+            }
+
+            .donut-hole {
+                width: 96px;
+                height: 96px;
+                top: 32px;
+                left: 32px;
+                font-size: 16px;
+            }
+
+            .summary-box {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .highlight-box {
+                padding: 12px;
+                margin: 15px 0;
+            }
+        }
+
+        /* Small phones specific optimizations */
+        @media (max-width: 380px) {
+            .logo {
+                font-size: 20px;
+            }
+
+            .card-value {
+                font-size: 20px;
+            }
+
+            .card-title {
+                font-size: 14px;
+            }
+
+            .card-subtitle {
+                font-size: 12px;
+            }
+
+            .donut-chart-container {
+                width: 140px;
+                height: 140px;
+            }
+
+            .donut-hole {
+                width: 84px;
+                height: 84px;
+                top: 28px;
+                left: 28px;
+                font-size: 14px;
+            }
+
+            .vertical-bar {
+                width: 25px;
+            }
+
+            .bar-group-label {
+                font-size: 10px;
+            }
+
+            /* handle landscape orientation */
+            @media (orientation: landscape) {
+                .two-columns {
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                .chart-container {
+                    height: 200px;
+                }
+            }
+        }
+
+        /* Fix for tables on very small screens */
+        @media (max-width: 500px) {
+            table {
+                font-size: 12px;
+            }
+
+            td,
+            th {
+                padding: 6px 8px;
+            }
+
+            .section {
+                padding: 10px;
+            }
+        }
+
+        /* scrolling experience for chart containers */
+        .chart-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .chart-container::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 3px;
+        }
+
+        .chart-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+    </style>
+</body>
+
+</html>
