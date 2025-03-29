@@ -26,18 +26,23 @@
         }
 
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         header {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
             border-bottom: 1px solid var(--gray);
             margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo {
@@ -51,6 +56,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -59,6 +65,7 @@
             font-weight: 500;
             cursor: pointer;
             border: none;
+            white-space: nowrap;
         }
 
         .btn-primary {
@@ -80,12 +87,20 @@
             display: flex;
             border-bottom: 1px solid var(--gray);
             margin-bottom: 20px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-tab {
             padding: 10px 20px;
             cursor: pointer;
             border-bottom: 3px solid transparent;
+            white-space: nowrap;
         }
 
         .nav-tab.active {
@@ -95,7 +110,7 @@
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -135,11 +150,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 650px;
         }
 
         th {
@@ -172,9 +189,15 @@
 
         .chart-container {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 20px;
             margin-bottom: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                grid-template-columns: 2fr 1fr;
+            }
         }
 
         .chart-card {
@@ -184,11 +207,25 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
+        .chart-canvas-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+
         .settings-section {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 15px;
             margin-bottom: 15px;
+        }
+
+        @media (min-width: 640px) {
+            .settings-section {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
 
         .tooltip {
@@ -243,6 +280,13 @@
             margin-top: 10px;
         }
 
+        .api-links {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         .feedback-card {
             background-color: white;
             border-radius: 8px;
@@ -253,8 +297,15 @@
 
         .feedback-header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             margin-bottom: 10px;
+        }
+
+        @media (min-width: 640px) {
+            .feedback-header {
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
 
         .feedback-date {
@@ -273,8 +324,27 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             margin-bottom: 15px;
             display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @media (min-width: 640px) {
+            .integration-card {
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .integration-main {
+            display: flex;
             align-items: center;
-            justify-content: space-between;
+            flex: 1 1 250px;
+        }
+
+        .integration-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .integration-logo {
@@ -287,6 +357,7 @@
             justify-content: center;
             font-weight: bold;
             color: #666;
+            flex-shrink: 0;
         }
 
         .integration-info {
@@ -344,48 +415,50 @@
 
         <div class="expiring-soon">
             <div class="section-title" style="padding: 15px;">Inventory Requiring Attention</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Batch/Lot</th>
-                        <th>Location</th>
-                        <th>Status</th>
-                        <th>Expiration</th>
-                        <th>Recommend</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Organic Milk (1 gal)</td>
-                        <td>GM-2503-A</td>
-                        <td>Aisle 4, Dairy</td>
-                        <td><span class="status-indicator status-warning"></span>Discount Soon</td>
-                        <td>03/20/2025</td>
-                        <td>15% Discount</td>
-                        <td><button class="btn btn-warning">Apply Discount</button></td>
-                    </tr>
-                    <tr>
-                        <td>Fresh Strawberries</td>
-                        <td>FS-0432-B</td>
-                        <td>Aisle 1, Produce</td>
-                        <td><span class="status-indicator status-danger"></span>Remove Today</td>
-                        <td>03/15/2025</td>
-                        <td>Remove from Display</td>
-                        <td><button class="btn btn-secondary">Mark Removed</button></td>
-                    </tr>
-                    <tr>
-                        <td>Ground Beef</td>
-                        <td>GB-1209-C</td>
-                        <td>Aisle 6, Meat</td>
-                        <td><span class="status-indicator status-warning"></span>Discount Soon</td>
-                        <td>03/18/2025</td>
-                        <td>25% Discount</td>
-                        <td><button class="btn btn-warning">Apply Discount</button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Batch/Lot</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Expiration</th>
+                            <th>Recommend</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Organic Milk (1 gal)</td>
+                            <td>GM-2503-A</td>
+                            <td>Aisle 4, Dairy</td>
+                            <td><span class="status-indicator status-warning"></span>Discount Soon</td>
+                            <td>03/20/2025</td>
+                            <td>15% Discount</td>
+                            <td><button class="btn btn-warning">Apply Discount</button></td>
+                        </tr>
+                        <tr>
+                            <td>Fresh Strawberries</td>
+                            <td>FS-0432-B</td>
+                            <td>Aisle 1, Produce</td>
+                            <td><span class="status-indicator status-danger"></span>Remove Today</td>
+                            <td>03/15/2025</td>
+                            <td>Remove from Display</td>
+                            <td><button class="btn btn-secondary">Mark Removed</button></td>
+                        </tr>
+                        <tr>
+                            <td>Ground Beef</td>
+                            <td>GB-1209-C</td>
+                            <td>Aisle 6, Meat</td>
+                            <td><span class="status-indicator status-warning"></span>Discount Soon</td>
+                            <td>03/18/2025</td>
+                            <td>25% Discount</td>
+                            <td><button class="btn btn-warning">Apply Discount</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div style="padding: 15px; text-align: right;">
                 <span class="modal-btn">View All Items</span>
             </div>
@@ -395,15 +468,16 @@
             <!-- Bar Chart Section: Sell-Through & Spoilage Rates -->
             <div class="chart-card">
                 <div class="section-title">Sell-Through & Spoilage Rates</div>
-                <canvas id="barChart" style="height: 250px;"></canvas>
+                <div class="chart-canvas-container">
+                    <canvas id="barChart"></canvas>
+                </div>
             </div>
 
             <!-- Pie Chart Section: QR Scan Analytics -->
             <div class="chart-card">
                 <div class="section-title">QR Scan Analytics</div>
-                <div
-                    style="height: 250px; background-color: var(--gray-light); border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                    <canvas id="pieChart" style="height: 200px;"></canvas>
+                <div class="chart-canvas-container">
+                    <canvas id="pieChart"></canvas>
                 </div>
             </div>
         </div>
@@ -414,23 +488,31 @@
         </div>
 
         <div class="integration-card">
-            <div class="integration-logo">SAP</div>
-            <div class="integration-info">
-                <div class="integration-title">SAP Retail Inventory Management</div>
-                <div class="integration-status">Connected • Last sync: Today, 2:15 PM</div>
+            <div class="integration-main">
+                <div class="integration-logo">SAP</div>
+                <div class="integration-info">
+                    <div class="integration-title">SAP Retail Inventory Management</div>
+                    <div class="integration-status">Connected • Last sync: Today, 2:15 PM</div>
+                </div>
             </div>
-            <span class="badge badge-success">Active</span>
-            <button class="btn">Settings</button>
+            <div class="integration-actions">
+                <span class="badge badge-success">Active</span>
+                <button class="btn">Settings</button>
+            </div>
         </div>
 
         <div class="integration-card">
-            <div class="integration-logo">POS</div>
-            <div class="integration-info">
-                <div class="integration-title">Point of Sale System</div>
-                <div class="integration-status">Connected • Automatic discounts enabled</div>
+            <div class="integration-main">
+                <div class="integration-logo">POS</div>
+                <div class="integration-info">
+                    <div class="integration-title">Point of Sale System</div>
+                    <div class="integration-status">Connected • Automatic discounts enabled</div>
+                </div>
             </div>
-            <span class="badge badge-success">Active</span>
-            <button class="btn">Settings</button>
+            <div class="integration-actions">
+                <span class="badge badge-success">Active</span>
+                <button class="btn">Settings</button>
+            </div>
         </div>
 
         <div class="api-section">
@@ -443,9 +525,9 @@
                 Authorization: Bearer {your_api_key}
             </div>
 
-            <div style="margin-top: 20px;">
-                <span class="modal-btn">View API Documentation</span> •
-                <span class="modal-btn">Download Sample Data</span> •
+            <div class="api-links">
+                <span class="modal-btn">View API Documentation</span>
+                <span class="modal-btn">Download Sample Data</span>
                 <span class="modal-btn">Generate New API Key</span>
             </div>
         </div>
@@ -471,51 +553,134 @@
         </div>
     </div>
     <script>
-        const barChartData = {
-            labels: ['Sold', 'Discounted', 'Spoiled'],
-            datasets: [{
-                label: 'Inventory Status',
-                data: [80, 15, 5], // Example data: 80% sold, 15% discounted, 5% spoiled
-                backgroundColor: ['#5b8c5a', '#4472c4', '#e74c3c'],
-                borderColor: ['#5b8c5a', '#4472c4', '#e74c3c'],
-                borderWidth: 1
-            }]
-        };
+        // Wait for DOM content to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
 
-        const barChartConfig = {
-            type: 'bar',
-            data: barChartData,
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
+            const barChartData = {
+                labels: ['Sold', 'Discounted', 'Spoiled'],
+                datasets: [{
+                    label: 'Inventory Status',
+                    data: [80, 15, 5], // Example data
+                    backgroundColor: ['#5b8c5a', '#4472c4', '#e74c3c'],
+                    borderColor: ['#5b8c5a', '#4472c4', '#e74c3c'],
+                    borderWidth: 1
+                }]
+            };
+
+            const barChartConfig = {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
+            };
+
+            const barChartElement = document.getElementById('barChart');
+            if (barChartElement) {
+                const barChart = new Chart(barChartElement, barChartConfig);
             }
-        };
 
-        const barChart = new Chart(document.getElementById('barChart'), barChartConfig);
+            const pieChartData = {
+                labels: ['Check expiration', 'Check nutrition', 'Check origin', 'Check discounts'],
+                datasets: [{
+                    data: [42, 23, 19, 16], // Example data from your table
+                    backgroundColor: ['#5b8c5a', '#4472c4', '#f8a93e', '#e74c3c'],
+                    hoverOffset: 4
+                }]
+            };
 
-        const pieChartData = {
-            labels: ['Check expiration dates', 'Check nutritional info', 'Check origin/sourcing', 'Check for discounts'],
-            datasets: [{
-                data: [42, 23, 19, 16], // Example data
-                backgroundColor: ['#5b8c5a', '#4472c4', '#f8a93e', '#e74c3c'],
-                hoverOffset: 4
-            }]
-        };
-
-        const pieChartConfig = {
-            type: 'pie',
-            data: pieChartData,
-            options: {
-                responsive: true
+            // determine legend position based on screen width
+            function getLegendPosition() {
+                return window.innerWidth < 768 ? 'bottom' : 'right';
             }
-        };
 
-        const pieChart = new Chart(document.getElementById('pieChart'), pieChartConfig);
+            // font size based on screen width
+            function getLegendFontSize() {
+                return window.innerWidth < 768 ? 10 : 12;
+            }
+
+            const pieChartConfig = {
+                type: 'pie',
+                data: pieChartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: getLegendPosition(),
+                            labels: {
+                                boxWidth: 10,
+                                font: {
+                                    size: getLegendFontSize()
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            const pieChartElement = document.getElementById('pieChart');
+            if (pieChartElement) {
+                const pieChart = new Chart(pieChartElement, pieChartConfig);
+                window.addEventListener('resize', function () {
+                    pieChart.options.plugins.legend.position = getLegendPosition();
+                    pieChart.options.plugins.legend.labels.font.size = getLegendFontSize();
+                    pieChart.update();
+                });
+            }
+        });
     </script>
+
+    <style>
+        /* Additional styles for responsiveness */
+        @media (max-width: 640px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .integration-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .integration-actions {
+                margin-top: 10px;
+            }
+        }
+
+        /* Fixing charts for very small phones */
+        @media (max-width: 400px) {
+            .chart-canvas-container {
+                height: 200px;
+            }
+        }
+
+        /* Fixing the table for very small phones */
+        @media (max-width: 400px) {
+            table {
+                min-width: 300px;
+            }
+
+            th,
+            td {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+        }
+    </style>
 </body>
 
 </html>
